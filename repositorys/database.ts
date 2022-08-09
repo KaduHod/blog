@@ -1,7 +1,7 @@
 
 const { MongoClient } = require('mongodb')
 
-class MongoCluster{
+export default class MongoCluster{
   url = "mongodb+srv://gym-cloud:tnTTWKg7Qw48STg@gym-cloud.tnp2iq6.mongodb.net/?retryWrites=true&w=majority";
   client;
   db;
@@ -17,6 +17,7 @@ class MongoCluster{
   }
 
 }
+
 
 const cliente = new MongoCluster()
       cliente.teste()
