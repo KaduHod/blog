@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wourkouts</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  @entryPointStyles('app')
+  @entryPointScripts('app')
+  <style>
+    body{
+      padding: 20px
+    }
+    #formulario{
+      width: 50%
+    }
+
+  </style>
+</head>
+<body>
+<div >
+  <div class="container-md">
+    <form id="formulario" class="form-control container-sm mb-3">
+      @each(muscle in muscles)
+      <label for="muscle-{{muscle}}">{{muscle}}</label>
+        <input type="checkbox" class="options" id="muscle-{{muscle}}" name="muscle" value="{{muscle}}" > <br>
+      @end
+      <input class="form-control" type="button" id='btn' value="Send that shit.">
+    </form>
+    <h1>Workout list</h1>
+    <table class="table">
+      <thead>
+        <th>#</th>
+        <th>Name</th>
+        <th>Target</th>
+      </thead>
+      <tbody id="list">
+      </tbody>
+    </table>
+
+  </div>
+
+  <script>
+    document.getElementById('btn').addEventListener('click', requestTrainning)
+
+    async function requestTrainning(event){
+      const checkBoxs = [...document.getElementsByName('muscle')]
+      const muscles = checkBoxs.filter( check => check.checked ).map( field => field.value )
+      const { data } = await axios.post('http://localhost:3333/workouts/assemble', { musculos : muscles })
+      mountList(data)
+    }
+
+    function mountList({exercicios}){
+      const tbody = document.getElementById('list')
+      console.log(tbody)
+      tbody.innerHTML = ''
+      exercicios.forEach( (exercise, i) => {
+        let tr = `
+        <tr>
+          <td>${i+1}</td>
+          <td>
+            <a target="_blank" href="${exercise.link}">
+            ${exercise.name}
+            </a>
+          </td>
+          <td>
+            ${musclesList(exercise)}
+          </td>
+        </tr>`
+
+        tbody.innerHTML += tr
+      });
+
+    }
+
+    function musclesList(exercise){
+      const tds = exercise.muscles.reduce((acc, curr) => {
+        return acc+=`${curr} `
+      }, '')
+
+      return `${tds}`
+    }
+  </script>
+</div>
+</body>
+</html>
