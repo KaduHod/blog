@@ -1,7 +1,7 @@
 import PythonApiHandler from 'App/Service/PythonApiHandler';
 
-class RandomWorkout {
-  public exercises:         any;
+export default class RandomWorkout {
+  public exercises:         Array <Object>;
   public workout:           Array <Object>;
   public possibleExercises: Array <Object>;
   public muscles:           Array <String>;
@@ -12,7 +12,7 @@ class RandomWorkout {
   }
 
   public setExercises = async () => {
-    this.exercises = await this.PythonApi.getExercises()
+    this.exercises = await this.PythonApi.getExercises()// all exercises from Repository Api
   }
 
   public setPossibleExercises = async () => {
@@ -23,6 +23,8 @@ class RandomWorkout {
       }
     )
   }
+
+
 }
 
-export default RandomWorkout
+

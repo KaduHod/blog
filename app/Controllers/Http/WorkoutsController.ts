@@ -15,10 +15,6 @@ class WorkoutsController {
     this.muscles = await this.PythonApi.getMuscles()
   }
 
-  public index = async (ctx) => {
-    return {muscles : this.muscles}
-  }
-
   public form = async ({response})=>{
     await this.setMuscles()
     response.status(200)

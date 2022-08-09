@@ -22,13 +22,12 @@ import Route from '@ioc:Adonis/Core/Route'
 import WorkoutsController from '../app/Controllers/Http/WorkoutsController'
 
 Route.group( () => {
-  Route.get('/', WorkoutsController.index)
   Route.post('/assemble', WorkoutsController.assembleMusclesForWourkout)
   Route.get('/form', WorkoutsController.form)
 }).prefix('workouts')
 
 Route.get('/', (ctx)=>{
-  ctx.response.redirect('/workouts')
+  ctx.response.redirect('/workouts/form')
 })
 
 
