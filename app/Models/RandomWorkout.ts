@@ -8,7 +8,7 @@ export default class RandomWorkout {
   public PythonApi:PythonApiHandler = new PythonApiHandler();
 
   constructor(muscles){
-    this.muscles   = muscles
+    this.muscles = muscles
   }
 
   public setExercises = async () => {

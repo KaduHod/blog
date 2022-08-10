@@ -30,4 +30,9 @@ Route.get('/', (ctx)=>{
   ctx.response.redirect('/workouts/form')
 })
 
+Route.get('/test', WorkoutsController.main)
+
+
+
+
 
