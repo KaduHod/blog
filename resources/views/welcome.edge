@@ -33,8 +33,8 @@
     <table class="table">
       <thead>
         <th>#</th>
-        <th>Name</th>
-        <th>Target</th>
+        <th>Exercise</th>
+        <th>Muscle</th>
       </thead>
       <tbody id="list">
       </tbody>
@@ -44,14 +44,13 @@
 
   <script>
     document.getElementById('btn').addEventListener('click', requestTrainning)
+    const joinMusclesArr = arr => arr.map(e => e.name).join(', ')
 
     async function requestTrainning(event){
       const checkBoxs = [...document.getElementsByName('muscle')]
       const muscles = checkBoxs.filter( check => check.checked ).map( field => field.value )
       const { data } = await axios.post('http://localhost:3333/workouts/assemble', { musculos : muscles })
-      console.log(data)
-
-      //mountList(data)
+      mountList(data)
     }
 
     function mountList({exercicios}){
@@ -68,7 +67,7 @@
             </a>
           </td>
           <td>
-            ${musclesList(exercise)}
+            ${joinMusclesArr(exercise.muscles)}
           </td>
         </tr>`
 
@@ -77,13 +76,6 @@
 
     }
 
-    function musclesList(exercise){
-      const tds = exercise.muscles.reduce((acc, curr) => {
-        return acc+=`${curr} `
-      }, '')
-
-      return `${tds}`
-    }
   </script>
 </div>
 </body>

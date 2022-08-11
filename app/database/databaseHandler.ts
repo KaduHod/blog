@@ -6,7 +6,6 @@ class MongoDB{
   public collection;
   public databaseName:string;
   public collectionName:string;
-  public connectionOn = false;
 
   constructor(){
     this.client = new MongoClient(this.url);
@@ -42,9 +41,10 @@ class MongoDB{
    */
   public query = async args => {
     try {
-      const {type, collection, data, filters, select} = args
-      this.collection = this.database.collection(collection)
+      const { type, collection, data,
+              filters, select, pipeline } = args
 
+      this.collection = this.database.collection(collection)
       const queryHandler = {
         insertOne: ({collection, data}) => {
           const query = collection.insertOne(data)
@@ -69,12 +69,16 @@ class MongoDB{
         delete: ({collection, filters}) => {
           const cursor = collection.deleteMany(filters)
           return new Promise(resolve => resolve( cursor.deletedCount))
+        },
+        aggregation: ({collection, pipeline}) => {
+          const [ match, lookup ] = pipeline
+          const cursor = collection.aggregate([ match, lookup ])
+          return new Promise(resolve => resolve(cursor.toArray()))
         }
       }
-
-      return await queryHandler[type]( {
+      return await queryHandler[type]({
         collection: this.collection,
-        data, filters, select
+        data, filters, select, pipeline
       })
     } catch (error) {
       console.log('\tError', error)

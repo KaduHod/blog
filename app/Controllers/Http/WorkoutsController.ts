@@ -26,6 +26,7 @@ class WorkoutsController {
     const muscleObjectIds:Array<ObjectId> = musculos.map( muscle => new ObjectId(muscle) )
     const randomWorkout = new RandomWorkout(muscleObjectIds)
     const exercicios:Array<Exercise> = await randomWorkout.getPossibleExercises()
+
     response.status(200)
     response.header('Content-type','application/json')
     return {exercicios}

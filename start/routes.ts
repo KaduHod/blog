@@ -20,21 +20,28 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 import WorkoutsController from '../app/Controllers/Http/WorkoutsController'
-import {ExerciseModel} from '../app/database/models'
 import db from '../app/database/databaseHandler'
-import {ObjectID} from 'mongodb'
+
 
 Route.group( () => {
   Route.post('/assemble', WorkoutsController.assembleMusclesForWourkout)
   Route.get('/form', WorkoutsController.form)
 }).prefix('workouts')
 
-Route.get('/', (ctx)=>{
-  ctx.response.redirect('/workouts/form')
-})
+Route.group( async ()=>{
+  Route.get('/muscles', async () => {
+    const muscles = await db.query({type:'find',collection:'muscles'})
+    return {muscles}
+  })
 
+  Route.get('/exercises', async () => {
+    const exercises = await db.query({type:'find', collection:'exercises'})
+    return {exercises}
+  })
 
+}).prefix('data')
 
+Route.on('/').redirect('/data/muscles')
 
 
 

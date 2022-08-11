@@ -15,9 +15,21 @@ export default class RandomWorkout {
 
   public getPossibleExercises = async () => {
     const exercicios:Array<Exercise> = await db.query({
-      type:'find',
+      type:'aggregation',
       collection:'exercises',
-      filters : {muscles: {$in : this.musclesIds}}
+      pipeline : [
+        { $match : {
+            muscles: {$in : this.musclesIds}
+          }
+        },
+        { $lookup: {
+            from : 'muscles',
+            localField : 'muscles',
+            foreignField : '_id',
+            as : 'muscles'
+          }
+        }
+      ]
     })
     return new Promise(resolve => resolve( exercicios ))
   }
