@@ -3,7 +3,7 @@ import { Exercise } from 'App/database/interfaces'
 import { ObjectId } from 'mongodb'
 
 export default class exerciseRepository{
-  static aggregateById = async ( ids:Array<ObjectId> ):Promise<Array<Exercise>> => {
+  static aggregateById = async ( ids:ObjectId[] ):Promise<Exercise[]> => {
     const query = await db.query({
       type:'aggregation',
       collection:'exercises',
