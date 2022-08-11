@@ -1,7 +1,6 @@
 import db from '../database/databaseHandler'
 import { Exercise } from 'App/database/interfaces'
 import { ObjectId } from 'mongodb'
-
 export default class exerciseRepository{
   static aggregateById = async ( ids:ObjectId[] ):Promise<Exercise[]> => {
     const query = await db.query({
@@ -21,7 +20,6 @@ export default class exerciseRepository{
         }
       ]
     })
-
     return new Promise( resolve => resolve( query) )
   }
 }

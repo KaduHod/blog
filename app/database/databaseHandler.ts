@@ -4,12 +4,10 @@ class MongoDB{
   public client;
   public database;
   public collection;
-  public databaseName:string;
   public collectionName:string;
 
   constructor(){
     this.client = new MongoClient(this.url);
-    this.databaseName = 'gym';
     this.database = this.client.db('gym');
   }
 

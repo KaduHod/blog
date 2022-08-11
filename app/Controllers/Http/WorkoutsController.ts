@@ -10,7 +10,7 @@ class WorkoutsController {
     const groupMusclesByBodyPart:Object = MuscleModel.groupMusclesByBodyPart(muscles)
     response.status(200)
     response.header('Content-type','text/html; charset=utf-8')
-    return View.render('welcome', {muscles, groupMusclesByBodyPart})
+    return View.render('list-exercises', {muscles, groupMusclesByBodyPart})
   }
 
   public assembleMusclesForWourkout = async ({request, response}) => {

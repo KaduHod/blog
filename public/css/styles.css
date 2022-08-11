@@ -1,5 +1,6 @@
 body{
-  padding: 20px
+  padding-top: 20px;
+  padding-bottom: 20px
 }
 #formulario{
   width: 50%
@@ -17,8 +18,7 @@ body{
   height: 100%;
   padding: 5px;
 }
-
 .flex-container :nth-child(2), .flex-container :nth-child(3){
-  border-left: 1px solid rgba(128, 128, 128, 0)255, 255, 255) ;
+  border-left: 1px solid rgba(128, 128, 128, 0) ;
 }
 

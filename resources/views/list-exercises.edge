@@ -10,10 +10,6 @@
   <link rel="stylesheet" href="/css/styles.css">
   @entryPointStyles('app')
   @entryPointScripts('app')
-  <style>
-
-
-  </style>
 </head>
 <body>
 <div >
@@ -26,7 +22,6 @@
             <label for="muscle-{{muscle._id}}">{{muscle.name}}
               <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}" >
             </label>
-
           @end
         </div>
         <div class="body-part">
@@ -35,7 +30,6 @@
             <label for="muscle-{{muscle._id}}">{{muscle.name}}
               <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}">
             </label>
-
           @end
         </div>
         <div class="body-part">
@@ -44,12 +38,9 @@
             <label for="muscle-{{muscle._id}}">{{muscle.name}}
               <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}" >
             </label>
-
           @end
         </div>
       </div>
-
-
       <input class="form-control" type="button" id='btn' value="Send that shit.">
     </form>
     <h1>Workout list</h1>
@@ -63,42 +54,7 @@
       </tbody>
     </table>
   </div>
-
-  <script>
-    document.getElementById('btn').addEventListener('click', requestTrainning)
-    const joinMusclesArr = arr => arr.map(e => e.name).join(', ')
-
-    async function requestTrainning(event){
-      const checkBoxs = [...document.getElementsByName('muscle')]
-      const muscles = checkBoxs.filter( check => check.checked ).map( field => field.value )
-      const { data } = await axios.post('http://localhost:3333/workouts/assemble', { musculos : muscles })
-      mountList(data)
-    }
-
-    function mountList({exercicios}){
-      const tbody = document.getElementById('list')
-      console.log(tbody)
-      tbody.innerHTML = ''
-      exercicios.forEach( (exercise, i) => {
-        let tr = `
-        <tr>
-          <td>${i+1}</td>
-          <td>
-            <a target="_blank" href="${exercise.link}">
-            ${exercise.name}
-            </a>
-          </td>
-          <td>
-            ${joinMusclesArr(exercise.muscles)}
-          </td>
-        </tr>`
-
-        tbody.innerHTML += tr
-      });
-
-    }
-
-  </script>
+  <script src="/js/scripts.js"></script>
 </div>
 </body>
 </html>
