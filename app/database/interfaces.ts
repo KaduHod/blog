@@ -1,5 +1,6 @@
 export interface Muscle{
   name:string;
+  bodyPart:Array<string>;
 }
 
 export interface Exercise{

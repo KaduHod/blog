@@ -2,7 +2,8 @@ import { Schema, model } from "mongoose";
 import { Muscle, Exercise } from "./interfaces";
 
 const muscleSchema = new Schema <Muscle> ({
-  name: { type: String, required: true }
+  name: { type: String, required: true },
+  bodyPart: {required: true}
 })
 
 const exerciseSchema = new Schema <Exercise> ({

@@ -1,19 +1,18 @@
 import db from '../database/databaseHandler'
-import {FindCursor, ObjectID} from 'mongodb'
-import { ExerciseModel } from 'App/database/models';
 import { Exercise } from 'App/database/interfaces';
+import muscleRepository from 'App/repository/muscleRepository';
 
 
-export default class RandomWorkout {
-  public exercises:         Array <Object>;
-  public workout:           Array <Object>;
-  public musclesIds:        Array <string>;
+export default class Workout {
+  public exercises:  Array <Object>;
+  public workout:    Array <Object>;
+  public musclesIds: Array <string>;
 
   constructor(musclesIds){
     this.musclesIds = musclesIds
   }
 
-  public getPossibleExercises = async () => {
+  public getPossibleExercises = async ():Promise<Array<Exercise>> => {
     const exercicios:Array<Exercise> = await db.query({
       type:'aggregation',
       collection:'exercises',
@@ -33,8 +32,6 @@ export default class RandomWorkout {
     })
     return new Promise(resolve => resolve( exercicios ))
   }
-
-
 }
 
 

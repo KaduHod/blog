@@ -1,0 +1,24 @@
+body{
+  padding: 20px
+}
+#formulario{
+  width: 50%
+}
+.flex-container{
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+.body-part{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: 5px;
+}
+
+.flex-container :nth-child(2), .flex-container :nth-child(3){
+  border-left: 1px solid rgba(128, 128, 128, 0)255, 255, 255) ;
+}
+

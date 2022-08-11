@@ -35,14 +35,14 @@ class MongoDB{
    * @param args {
    *  type: tipo de operação no banco
    *  collection: tabela a ser manipulada
-   *  data: dados para query
+   *  the rest depends of whats type of query you want
    * }
    * @returns
    */
   public query = async args => {
     try {
       const { type, collection, data,
-              filters, select, pipeline } = args
+              filters, select, pipeline, set } = args
 
       this.collection = this.database.collection(collection)
       const queryHandler = {
@@ -74,11 +74,20 @@ class MongoDB{
           const [ match, lookup ] = pipeline
           const cursor = collection.aggregate([ match, lookup ])
           return new Promise(resolve => resolve(cursor.toArray()))
+        },
+        updateOne: ({collection, filters, set}) => {
+          const query = collection.updateOne(filters, set)
+          return new Promise(resolve => resolve(query.matchedCount))
+        },
+        updateMany: ({collection, filters, set}) => {
+          const query = collection.updateMany(filters, set)
+          return new Promise(resolve => resolve(query.matchedCount))
         }
       }
+
       return await queryHandler[type]({
         collection: this.collection,
-        data, filters, select, pipeline
+        data, filters, select, pipeline, set
       })
     } catch (error) {
       console.log('\tError', error)

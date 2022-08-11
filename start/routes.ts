@@ -41,8 +41,8 @@ Route.group( async ()=>{
 
 }).prefix('data')
 
-Route.on('/').redirect('/data/muscles')
 
+Route.on('/').redirect('/data/muscles')
 
 
 
