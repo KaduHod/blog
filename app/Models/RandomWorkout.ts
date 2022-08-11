@@ -1,27 +1,25 @@
-import PythonApiHandler from 'App/Service/PythonApiHandler';
+import db from '../database/databaseHandler'
+import {FindCursor, ObjectID} from 'mongodb'
+import { ExerciseModel } from 'App/database/models';
+import { Exercise } from 'App/database/interfaces';
+
 
 export default class RandomWorkout {
   public exercises:         Array <Object>;
   public workout:           Array <Object>;
-  public possibleExercises: Array <Object>;
-  public muscles:           Array <String>;
-  public PythonApi:PythonApiHandler = new PythonApiHandler();
+  public musclesIds:        Array <string>;
 
-  constructor(muscles){
-    this.muscles = muscles
+  constructor(musclesIds){
+    this.musclesIds = musclesIds
   }
 
-  public setExercises = async () => {
-    this.exercises = await this.PythonApi.getExercises()// all exercises from Repository Api
-  }
-
-  public setPossibleExercises = async () => {
-    await this.setExercises()
-    this.possibleExercises = this.exercises.filter( exercise => {
-        const { muscles } = exercise
-        return muscles.some( muscle => this.muscles.includes(muscle) )
-      }
-    )
+  public getPossibleExercises = async () => {
+    const exercicios:Array<Exercise> = await db.query({
+      type:'find',
+      collection:'exercises',
+      filters : {muscles: {$in : this.musclesIds}}
+    })
+    return new Promise(resolve => resolve( exercicios ))
   }
 
 

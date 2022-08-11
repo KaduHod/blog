@@ -14,7 +14,7 @@ const exerciseSchema = new Schema <Exercise> ({
   }]
 })
 
-const  MuscleModel  = model<Muscle>('Muscle',     muscleSchema)
-const ExerciseModel = model<Exercise>('Exercise', exerciseSchema)
+export const  MuscleModel  = model<Muscle>('Muscle',     muscleSchema)
+export const ExerciseModel = model<Exercise>('Exercise', exerciseSchema)
 
-export {MuscleModel, ExerciseModel}
+

@@ -1,12 +1,12 @@
-interface Muscle{
+export interface Muscle{
   name:string;
 }
 
-interface Exercise{
+export interface Exercise{
   link:string;
   name:string;
   muscles:Array<string>;
 }
 
-export {Muscle, Exercise}
+
 

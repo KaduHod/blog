@@ -1,26 +1,23 @@
-//const { MongoClient } = require('mongodb')
 import { MongoClient } from 'mongodb'
-export default class MongoDB{
+class MongoDB{
   public url = "mongodb+srv://gym-cloud:tnTTWKg7Qw48STg@gym-cloud.tnp2iq6.mongodb.net/?retryWrites=true&w=majority";
   public client;
-  public db;
+  public database;
   public collection;
-  public dbName:string;
+  public databaseName:string;
   public collectionName:string;
   public connectionOn = false;
 
   constructor(){
     this.client = new MongoClient(this.url);
-    this.dbName = 'gym';
-    this.db = this.client.db('gym');
-    this.connectionOn = false;
+    this.databaseName = 'gym';
+    this.database = this.client.db('gym');
   }
 
   public connect = async () => {
     try {
       this.client.connect()
-      this.connectionOn = true
-      console.log('\n\t\t  <======= Connected! =======>\n')
+      console.log('\n\t\t  <======= Connected to Mongo Cloud! =======>\n')
     } catch (error) {
       console.log('\t Error:'+error)
     }
@@ -29,7 +26,6 @@ export default class MongoDB{
   public disconnect = () => {
     try {
       this.client.close()
-      this.connectionOn = false
       console.log('\n\t\t<======= Disconnected! =======>\n')
     } catch (error) {
       console.log('\t Error:'+error)
@@ -48,7 +44,7 @@ export default class MongoDB{
     try {
       if(!this.connectionOn) this.client.connect()
       const {type, collection, data, filters, select} = args
-      this.collection = this.db.collection(collection)
+      this.collection = this.database.collection(collection)
 
       const queryHandler = {
         insertOne: async ({collection, data}) => {
@@ -65,6 +61,14 @@ export default class MongoDB{
         find: ({collection, filters, select}) => {
           const cursor = collection.find(filters, select)
           return new Promise(resolve => resolve(cursor.toArray()))
+        },
+        deleteMany: ({collection, filters}) => {
+          const cursor = collection.deleteMany(filters)
+          return new Promise(resolve => resolve(cursor.deletedCount ))
+        },
+        delete: ({collection, filters}) => {
+          const cursor = collection.deleteMany(filters)
+          return new Promise(resolve => resolve(cursor.deletedCount))
         }
       }
 
@@ -82,13 +86,9 @@ export default class MongoDB{
       return error
     }
   }
-
-  // createDatabase = async dbName => {
-    // this.setDatabase(dbName)
-  // }
-
-  // setDatabase = db => {
-    // this.db = this.client.db(db)
-    // this.dbName = db
-  // }
 }
+
+const db = new MongoDB()
+      db.connect()
+
+export default db

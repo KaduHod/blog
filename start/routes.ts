@@ -20,6 +20,9 @@
 
 import Route from '@ioc:Adonis/Core/Route'
 import WorkoutsController from '../app/Controllers/Http/WorkoutsController'
+import {ExerciseModel} from '../app/database/models'
+import db from '../app/database/databaseHandler'
+import {ObjectID} from 'mongodb'
 
 Route.group( () => {
   Route.post('/assemble', WorkoutsController.assembleMusclesForWourkout)
@@ -30,10 +33,10 @@ Route.get('/', (ctx)=>{
   ctx.response.redirect('/workouts/form')
 })
 
-Route.get('/test', WorkoutsController.main)
 
-Route.get('/insert-muscles', WorkoutsController.insertMuscles)
-Route.get('/insert-exercises', WorkoutsController.insertExercises)
+
+
+
 
 
 
