@@ -17,4 +17,4 @@ const exerciseSchema = new Schema <Exercise> ({
 const  MuscleModel  = model<Muscle>('Muscle',     muscleSchema)
 const ExerciseModel = model<Exercise>('Exercise', exerciseSchema)
 
-export default {MuscleModel, ExerciseModel}
+export {MuscleModel, ExerciseModel}

@@ -32,6 +32,9 @@ Route.get('/', (ctx)=>{
 
 Route.get('/test', WorkoutsController.main)
 
+Route.get('/insert-muscles', WorkoutsController.insertMuscles)
+Route.get('/insert-exercises', WorkoutsController.insertExercises)
+
 
 
 

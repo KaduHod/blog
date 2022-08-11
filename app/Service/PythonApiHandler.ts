@@ -6,13 +6,11 @@ export default class PythonApiHandler{
     exercises : 'http://127.0.0.1:9999/workouts/wiki'
   }
 
-  public getMuscles = async () => {
-    const {data} = await axios.get(this.endpoint.muscles)
-    return data
+  public getMuscles = () => {
+    return new Promise( (resolve) => resolve(axios.get(this.endpoint.muscles)))
   }
 
-  public getExercises = async () => {
-    const {data} = await axios.get(this.endpoint.exercises)
-    return data
+  public getExercises = () => {
+    return new Promise( (resolve) => resolve(axios.get(this.endpoint.exercises)))
   }
 }
