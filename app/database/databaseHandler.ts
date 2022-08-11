@@ -42,45 +42,40 @@ class MongoDB{
    */
   public query = async args => {
     try {
-      if(!this.connectionOn) this.client.connect()
       const {type, collection, data, filters, select} = args
       this.collection = this.database.collection(collection)
 
       const queryHandler = {
-        insertOne: async ({collection, data}) => {
-          const query = await collection.insertOne(data)
-          return query.insertedCount
+        insertOne: ({collection, data}) => {
+          const query = collection.insertOne(data)
+          return new Promise(resolve => resolve( query ))
         },
-        insertMany: async ({collection, data}) => {
-          const query = await collection.insertMany(data)
-          return query.insertedCount
+        insertMany: ({collection, data}) => {
+          const query = collection.insertMany(data)
+          return new Promise(resolve => resolve( query.insertedCount ))
         },
-        findOne: async ({collection, filters, select}) => {
-          return await collection.findOne(filters, select)
+        findOne: ({collection, filters, select}) => {
+          const query = collection.findOne(filters, select)
+          return new Promise(resolve => resolve( query ))
         },
         find: ({collection, filters, select}) => {
           const cursor = collection.find(filters, select)
-          return new Promise(resolve => resolve(cursor.toArray()))
+          return new Promise(resolve => resolve( cursor.toArray() ))
         },
         deleteMany: ({collection, filters}) => {
           const cursor = collection.deleteMany(filters)
-          return new Promise(resolve => resolve(cursor.deletedCount ))
+          return new Promise(resolve => resolve( cursor.deletedCount ))
         },
         delete: ({collection, filters}) => {
           const cursor = collection.deleteMany(filters)
-          return new Promise(resolve => resolve(cursor.deletedCount))
+          return new Promise(resolve => resolve( cursor.deletedCount))
         }
       }
 
-      const queryResult = await queryHandler[type]( {
+      return await queryHandler[type]( {
         collection: this.collection,
-        data,
-        filters,
-        select
+        data, filters, select
       })
-      return queryResult
-
-
     } catch (error) {
       console.log('\tError', error)
       return error

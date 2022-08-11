@@ -2,12 +2,11 @@
 import View from '@ioc:Adonis/Core/View'
 import RandomWorkout from 'App/Models/RandomWorkout';
 import db from "../../database/databaseHandler";
-import {MuscleModel, ExerciseModel} from '../../database/models'
 import { Muscle, Exercise } from "../../database/interfaces";
 import {ObjectId} from 'mongodb'
 
 class WorkoutsController {
-  public muscles: Array <Object>;
+  public muscles:Array<Muscle>;
 
   constructor(){
   }
@@ -17,7 +16,6 @@ class WorkoutsController {
       type:'find',
       collection:'muscles'
     })
-
     response.status(200)
     response.header('Content-type','text/html; charset=utf-8')
     return View.render('welcome', {muscles : this.muscles, musclesJSON: JSON.stringify(this.muscles)})
@@ -25,7 +23,7 @@ class WorkoutsController {
 
   public assembleMusclesForWourkout = async ({request, response}) => {
     const { musculos } = request.body()
-    const muscleObjectIds: Array <ObjectId> = musculos.map( muscle => new ObjectId(muscle) )
+    const muscleObjectIds:Array<ObjectId> = musculos.map( muscle => new ObjectId(muscle) )
     const randomWorkout = new RandomWorkout(muscleObjectIds)
     const exercicios:Array<Exercise> = await randomWorkout.getPossibleExercises()
     response.status(200)
