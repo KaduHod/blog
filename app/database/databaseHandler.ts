@@ -89,6 +89,7 @@ class MongoDB{
         collection: this.collection,
         data, filters, select, pipeline, set
       })
+
     } catch (error) {
       console.log('\tError', error)
       return error

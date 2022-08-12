@@ -1,5 +1,5 @@
 import db from '../database/databaseHandler'
-import { Muscle } from 'App/database/interfaces'
+import { Muscle } from 'App/Models/interfaces'
 
 export default class muscleRepository{
   static all = ():Promise<Muscle[]> =>{

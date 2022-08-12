@@ -1,5 +1,5 @@
 import View from '@ioc:Adonis/Core/View'
-import { Muscle, Exercise } from "../../database/interfaces";
+import { Muscle, Exercise } from "../../Models/interfaces";
 import { ObjectId } from 'mongodb'
 import muscleRepository from '../../repository/muscleRepository'
 import exerciseRepository from 'App/repository/exerciseRepository';
@@ -22,5 +22,4 @@ class WorkoutsController {
     return {exercicios}
   }
 }
-
 export default new WorkoutsController

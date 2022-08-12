@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { Muscle, Exercise } from "./interfaces";
+import { Muscle, Exercise } from "../Models/interfaces";
 
 const muscleSchema = new Schema <Muscle> ({
   name: { type: String, required: true },

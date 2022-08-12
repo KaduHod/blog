@@ -1,5 +1,5 @@
 import db from '../database/databaseHandler'
-import { Exercise } from 'App/database/interfaces'
+import { Exercise } from 'App/Models/interfaces'
 import { ObjectId } from 'mongodb'
 export default class exerciseRepository{
   static aggregateById = async ( ids:ObjectId[] ):Promise<Exercise[]> => {
