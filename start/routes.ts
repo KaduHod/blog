@@ -17,15 +17,16 @@
 | import './routes/customer''
 |
 */
-
+import Env from '@ioc:Adonis/Core/Env'
 import Route from '@ioc:Adonis/Core/Route'
 import WorkoutsController from '../app/Controllers/Http/WorkoutsController'
 import db from '../app/database/databaseHandler'
 
 
 Route.group( () => {
-  Route.post('/assemble', WorkoutsController.assembleMusclesForWourkout)
-  Route.get('/form', WorkoutsController.form)
+  Route.post('/assemble', WorkoutsController.assembleMusclesFormWourkout)
+  Route.get('/exercise-list', WorkoutsController.form)
+  Route.post('/form-random-workout', WorkoutsController.assembleRandomWorkout)
 }).prefix('workouts')
 
 Route.group( async ()=>{
@@ -40,7 +41,6 @@ Route.group( async ()=>{
   })
 
 }).prefix('data')
-
 
 Route.on('/').redirect('/data/muscles')
 

@@ -9,7 +9,3 @@ export interface Exercise{
   muscles:Array<string>;
 }
 
-export interface obj{
-
-}
-
