@@ -8,12 +8,12 @@
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="/css/phone.css">
   <link rel="stylesheet" href="/css/loading-gif.css">
-  @entryPointStyles('app')
+  {{--  @entryPointStyles('app')  --}}
   @entryPointScripts('app')
 </head>
 <body>
   <div id="main-container">
-    <form id="formulario" >
+    <form action="{{ route('workouts.assemble')}} " id="formulario" >
       <div class="inputs-container" id="inputs-container-one">
         <div class="body-part">
           <h3>Lower Body</h3>
@@ -57,7 +57,9 @@
         <thead>
           <th>#</th>
           <th>Exercise</th>
-          <th>Muscle</th>
+          <th>Agonists</th>
+          <th>Synergists</th>
+          <th>Stabilizers</th>
         </thead>
         <tbody id="list">
         </tbody>
@@ -68,4 +70,7 @@
 <script src="/js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+  
+</script>
 </html>

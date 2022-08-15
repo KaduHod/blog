@@ -1,13 +1,17 @@
 const table = document.getElementById('table-workout-list')
-const joinMusclesArr = arr => arr.map(e => e.name).join(', ')
+const aseembleWorkout = document.getElementById('formulario').action
+const joinMusclesArr = arr => { 
+  if(!arr) return
+  return arr.map(e => e.name).join(', ')
+}
 const gif_container = document.getElementById('gif-container')
 const checkBoxs = [...document.getElementsByName('muscle')]
       checkBoxs.forEach( el => el.addEventListener('change', requestTrainning) )
 
-function requestTrainning(event){
+function requestTrainning({target}){
   show(gif_container)
   const musclesIds = checkBoxs.filter( check => check.checked ).map( ({value}) => value )
-  fetch('http://localhost:3333/workouts/assemble', {
+  fetch( aseembleWorkout, {
     method: 'POST',
     body: JSON.stringify({musclesIds}),
     headers: {"Content-type": "application/json; charset=UTF-8"}
@@ -34,9 +38,10 @@ function hide({classList}){
 }
 
 function mountList(exercicios){
+  console.log(exercicios)
   const tbody = document.getElementById('list')
   tbody.innerHTML = ''
-  exercicios.forEach( ({link, name, muscles}, i) => {
+  exercicios.forEach( ({link, name, agonists, synergists, stabilizers}, i) => {
     let tr = `
     <tr>
       <td>${i+1}</td>
@@ -46,7 +51,13 @@ function mountList(exercicios){
         </a>
       </td>
       <td>
-        ${joinMusclesArr(muscles)}
+        ${joinMusclesArr(agonists)}
+      </td>
+      <td>
+        ${joinMusclesArr(synergists)}
+      </td>
+      <td>
+        ${joinMusclesArr(stabilizers)}
       </td>
     </tr>`
     tbody.innerHTML += tr

@@ -1,13 +1,27 @@
 import db from '../database/databaseHandler'
 import { Exercise, Muscle } from 'App/Models/interfaces';
-import muscleRepository from 'App/repository/muscleRepository';
-
+import exerciseRepository from 'App/repository/exerciseRepository';
+import { Collection, ObjectId } from 'mongodb';
 
 export default class WorkoutModel {
-  public exercises:  Object[];
-  static random = async (exercisesPerMuscle:Number| null, totalExercises:Number | null, musclesList:String[] | null, bodyParts:String[] | null) => {
-    return new Promise ( resolve => resolve({exercisesPerMuscle, totalExercises, musclesList, bodyParts}))
+  public  exercisesPerMuscle:Number | null = null;
+  public  musclesIdList:ObjectId[]  | null = null;
+  private exercises:Exercise[]      | null = null;
+
+  constructor({exercisesPerMuscle , musclesIdList}){
+    this.exercisesPerMuscle = exercisesPerMuscle;
+    this.musclesIdList      = musclesIdList;
+  }
+
+  public setExercisesByMusclesId = async () => { 
+    this.exercises = await exerciseRepository.aggregateWithMusclesById(this.musclesIdList)
+  }
+
+  getExercises():Collection{
+    return this.exercises
   }
 }
+
+
 
 
