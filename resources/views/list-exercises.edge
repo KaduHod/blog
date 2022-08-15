@@ -13,7 +13,9 @@
 </head>
 <body>
   <div id="main-container">
-    @include('partials/form-muscles')
+    <form action="{{ route('workouts.assemble')}} " id="formulario" >
+      @include('partials/form-muscles')
+    </form>
     @include('partials/loading-gif')
     @include('partials/table-muscles')
   </div>

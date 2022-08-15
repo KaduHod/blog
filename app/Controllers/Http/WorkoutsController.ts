@@ -24,6 +24,14 @@ class WorkoutsController {
     return {exercicios}
   }
 
+  public randomWorkout = async ({response}) => {
+    const muscles:Muscle[] = await muscleRepository.all()
+    const groupMusclesByBodyPart:Object = MuscleModel.groupByBodyPart(muscles)
+    response.status(200)
+    response.header('Content-type','text/html; charset=utf-8')
+    return View.render('random-workout-form', {muscles, groupMusclesByBodyPart})
+  }
+
   public assembleRandomWorkout = async ({request,response}) => {
     const {exercisesPerMuscle, musclesList} = request.body()
     const musclesIdList = musclesList.map( (id:String):ObjectId => new ObjectId(id))

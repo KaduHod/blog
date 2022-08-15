@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Workout - Gym blog</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/phone.css">
+  <link rel="stylesheet" href="/css/loading-gif.css">
+</head>
+<body>
+  <form action="{{ route('workouts.random-form') }} " id="form-random-workout" method="post">
+    @include('partials/form-muscles')
+    <div class="inputs-container">
+      <div class="body-part" id="sets">
+        <label for="">Sets per muscle</label>
+        <select name="sets" id="">
+          <optgroup label="Hipertrofy | 6 - 12 Reps">
+            <option value="3 Hipertrofy" selected>3</option>
+            <option value="4 Hipertrofy">4</option>
+            <option value="5 Hipertrofy">5</option>
+            <option value="6 Hipertrofy">6</option>
+          </optgroup>
+          <optgroup label="Resistence | > 12 Reps">
+            <option value="3 Resistence">3</option>
+            <option value="4 Resistence">4</option>
+          </optgroup>
+          <optgroup label="Strength | 3 - 6 Reps">
+            <option value="4 Strength">4</option>
+            <option value="5 Strength">5</option>
+            <option value="6 Strength">6</option>
+          </optgroup>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success">Enviar</button>
+  </form>
+
+  <script>
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      const {target} = event
+      const values = [...target.getElementsByTagName('input')].map( ({value}) => value)
+      console.log(values)
+    }
+    document.getElementById('form-random-workout').addEventListener('submit', handleSubmit)
+  </script>
+
+</body>
+</html>

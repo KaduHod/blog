@@ -1,31 +1,30 @@
-<form action="{{ route('workouts.assemble')}} " id="formulario" >
-  <div class="inputs-container" id="inputs-container-one">
-    <div class="body-part">
-      <h3>Lower Body</h3>
-      @each(muscle in groupMusclesByBodyPart.Lower)
-        <label for="muscle-{{muscle._id}}">
-          <span>{{muscle.name}}</span>
-          <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}" >
-        </label>
-      @end
-    </div>
-    <div class="body-part">
-       <h3>Upper Body</h3>
-      @each(muscle in groupMusclesByBodyPart.Upper)
-        <label for="muscle-{{muscle._id}}">
-          <span>{{muscle.name}}</span>
-          <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}">
-        </label>
-      @end
-    </div>
-    <div class="body-part">
-      <h3>Core</h3>
-      @each(muscle in groupMusclesByBodyPart.Core)
-        <label for="muscle-{{muscle._id}}">
-          <span>{{muscle.name}}</span>
-          <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}" >
-        </label>
-      @end
-    </div>
+<div class="inputs-container">
+  <div class="body-part">
+    <h3>Lower Body</h3>
+    @each(muscle in groupMusclesByBodyPart.Lower)
+      <label for="muscle-{{muscle._id}}">
+        <span>{{muscle.name}}</span>
+        <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}" >
+      </label>
+    @end
   </div>
-</form>
+  <div class="body-part">
+     <h3>Upper Body</h3>
+    @each(muscle in groupMusclesByBodyPart.Upper)
+      <label for="muscle-{{muscle._id}}">
+        <span>{{muscle.name}}</span>
+        <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}">
+      </label>
+    @end
+  </div>
+  <div class="body-part">
+    <h3>Core</h3>
+    @each(muscle in groupMusclesByBodyPart.Core)
+      <label for="muscle-{{muscle._id}}">
+        <span>{{muscle.name}}</span>
+        <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}" >
+      </label>
+    @end
+  </div>
+</div>
+

@@ -13,8 +13,8 @@ export default class WorkoutModel {
     this.musclesIdList      = musclesIdList;
   }
 
-  public setExercisesByMusclesId = async () => { 
-    this.exercises = await exerciseRepository.aggregateWithMusclesById(this.musclesIdList)
+  public setExercisesByMusclesId = async () => {
+    this.exercises = await exerciseRepository.aggregateByAgonist(this.musclesIdList)
   }
 
   getExercises():Collection{
