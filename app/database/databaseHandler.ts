@@ -42,7 +42,7 @@ class MongoDB{
       const { type, collection,
               data, filters,
               select, pipeline,
-              set } = args
+              set, facet } = args
 
       this.collection = this.database.collection(collection)
       const queryHandler = {
@@ -75,6 +75,10 @@ class MongoDB{
           const cursor = collection.aggregate([ match, lookup ])
           return new Promise(resolve => resolve(cursor.toArray()))
         },
+        multipleAggregation: ({collection, pipeline}):Promise<Document[]> => {
+          const cursor = collection.aggregate(pipeline)
+          return new Promise( resolve => resolve(cursor.toArray()))
+        },
         updateOne: ({collection, filters, set}):Promise<Number> => {
           const query = collection.updateOne(filters, set)
           return new Promise(resolve => resolve(query.matchedCount))
@@ -87,7 +91,8 @@ class MongoDB{
 
       return await queryHandler[type]({
         collection: this.collection,
-        data, filters, select, pipeline, set
+        data, filters, select, pipeline,
+        set, facet
       })
 
     } catch (error) {

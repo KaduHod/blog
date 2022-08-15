@@ -20,22 +20,38 @@ export default class exerciseRepository{
         }
       ]
     })
-    return new Promise( resolve => resolve( query) )
+    return new Promise( resolve => resolve( query ) )
   }
-  static aggregateWithTypesOfMuscles = async ( ids:ObjectId[] ):Promise<Exercise[]> => {
+  static aggregateByAgonist = async ( ids:ObjectId[], ):Promise<Exercise[]> => {
     const query = await db.query({
-      type:'aggregation',
+      type:'multipleAggregation',
       collection:'exercises',
       pipeline : [
-        { $match : {
-            agonists : {$in : ids}
-          }
+        {
+          $match : { agonists : { $in : ids } }
         },
-        { $lookup: {
-            from : 'muscles',
+        {
+          $lookup : {
+            from:'muscles',
             localField : 'agonists',
             foreignField : '_id',
             as : 'agonists'
+          }
+        },
+        {
+          $lookup : {
+            from:'muscles',
+            localField : 'stabilizers',
+            foreignField : '_id',
+            as : 'stabilizers'
+          }
+        },
+        {
+          $lookup : {
+            from:'muscles',
+            localField : 'synergists',
+            foreignField : '_id',
+            as : 'synergists'
           }
         }
       ]

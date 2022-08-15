@@ -20,6 +20,8 @@
 import Route from '@ioc:Adonis/Core/Route'
 import WorkoutsController from '../app/Controllers/Http/WorkoutsController'
 import db from '../app/database/databaseHandler'
+import exerciseRepository from 'App/repository/exerciseRepository'
+import { ObjectId } from 'mongodb'
 
 
 Route.group( () => {
@@ -40,6 +42,16 @@ Route.group( async ()=>{
   })
 
 }).prefix('data')
+
+Route.get('/test', async ({response}) => {
+  let arrIds = ['62f3ea9a76ae245ddc9628f2','62f3ea9a76ae245ddc9628f0'
+                ].map( id => new ObjectId(id))
+  const exercises = await exerciseRepository.aggregateWithTypesOfMuscles(arrIds)
+  console.log(arrIds)
+  response.status(200)
+  response.header('Content-type','application/json')
+  return {exercises}
+})
 
 Route.on('/').redirect('/data/muscles')
 

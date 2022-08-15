@@ -1,6 +1,6 @@
 const table = document.getElementById('table-workout-list')
 const aseembleWorkout = document.getElementById('formulario').action
-const joinMusclesArr = arr => { 
+const joinMusclesArr = arr => {
   if(!arr) return
   return arr.map(e => e.name).join(', ')
 }

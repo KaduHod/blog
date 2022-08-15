@@ -18,7 +18,7 @@ class WorkoutsController {
   public assembleMusclesFormWourkout = async ({request, response}) => {
     const { musclesIds } = request.body()
     const muscleObjectIds:ObjectId[] = musclesIds.map( (id:String):ObjectId => new ObjectId(id))
-    const exercicios :Exercise[] = await exerciseRepository.aggregateWithTypesOfMuscles(muscleObjectIds)
+    const exercicios :Exercise[] = await exerciseRepository.aggregateByAgonist(muscleObjectIds)
     response.status(200)
     response.header('Content-type','application/json')
     return {exercicios}
