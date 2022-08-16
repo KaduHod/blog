@@ -11,42 +11,20 @@
   <link rel="stylesheet" href="/css/loading-gif.css">
 </head>
 <body>
-  <form action="{{ route('workouts.random-form') }} " id="form-random-workout" method="post">
+  <form action="{{ route('workouts.random-form-post') }} " id="form-random-workout" method="post">
     @include('partials/form-muscles')
     <div class="inputs-container">
-      <div class="body-part" id="sets">
-        <label for="">Sets per muscle</label>
-        <select name="sets" id="">
-          <optgroup label="Hipertrofy | 6 - 12 Reps">
-            <option value="3 Hipertrofy" selected>3</option>
-            <option value="4 Hipertrofy">4</option>
-            <option value="5 Hipertrofy">5</option>
-            <option value="6 Hipertrofy">6</option>
-          </optgroup>
-          <optgroup label="Resistence | > 12 Reps">
-            <option value="3 Resistence">3</option>
-            <option value="4 Resistence">4</option>
-          </optgroup>
-          <optgroup label="Strength | 3 - 6 Reps">
-            <option value="4 Strength">4</option>
-            <option value="5 Strength">5</option>
-            <option value="6 Strength">6</option>
-          </optgroup>
+      <div class="body-part">
+        <label for=""> <h3>Sets per muscle</h3> </label>
+        <select name="workoutType" id="workoutType">
+          <option value='{"type":"hipertrofy","reps":"6-12","setsPerMuscle":"9"}'>Hipertrofy | 6 - 12 Reps | 9 sets</option>
+          <option value='{"type":"resistence","reps":">13","setsPerMuscle":"12"}'>Resistence | > 13 Reps   | 12 sets</option>
+          <option value='{"type":"strength","reps":"3-6","setsPerMuscle":"9"}'>Strength   | 3 - 6 Reps  | 9 sets</option>
         </select>
       </div>
     </div>
     <button type="submit" class="btn btn-success">Enviar</button>
   </form>
-
-  <script>
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      const {target} = event
-      const values = [...target.getElementsByTagName('input')].map( ({value}) => value)
-      console.log(values)
-    }
-    document.getElementById('form-random-workout').addEventListener('submit', handleSubmit)
-  </script>
-
+  <script src="/js/random-workout-form.js"></script>
 </body>
 </html>

@@ -2,8 +2,8 @@ import db from '../database/databaseHandler'
 import { Exercise } from 'App/Models/interfaces'
 import { ObjectId } from 'mongodb'
 export default class exerciseRepository{
-  static aggregateWithMusclesById = async ( ids:ObjectId[] ):Promise<Exercise[]> => {
-    const query = await db.query({
+  static aggregateWithMusclesById = ( ids:ObjectId[] ):Promise<Exercise[]> => {
+    const query = db.query({
       type:'aggregation',
       collection:'exercises',
       pipeline : [
@@ -22,8 +22,8 @@ export default class exerciseRepository{
     })
     return new Promise( resolve => resolve( query ) )
   }
-  static aggregateByAgonist = async ( ids:ObjectId[], ):Promise<Exercise[]> => {
-    const query = await db.query({
+  static aggregateByAgonist = ( ids:ObjectId[], ):Promise<Exercise[]> => {
+    const query = db.query({
       type:'multipleAggregation',
       collection:'exercises',
       pipeline : [
@@ -59,8 +59,8 @@ export default class exerciseRepository{
     return new Promise( resolve => resolve( query) )
   }
 
-  static aggregateWithMuscles = async ():Promise<Exercise[]> => {
-    const query = await db.query({
+  static aggregateWithMuscles = ():Promise<Exercise[]> => {
+    const query = db.query({
       type:'aggregation',
       collection:'exercises',
       pipeline : [

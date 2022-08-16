@@ -41,8 +41,8 @@ class MongoDB{
     try {
       const { type, collection,
               data, filters,
-              select, pipeline,
-              set, facet } = args
+              project, pipeline,
+              set, facet, limit } = args
 
       this.collection = this.database.collection(collection)
       const queryHandler = {
@@ -54,12 +54,12 @@ class MongoDB{
           const query = collection.insertMany(data)
           return new Promise(resolve => resolve( query.insertedCount ))
         },
-        findOne: ({collection, filters, select}):Promise<Document> => {
-          const query = collection.findOne(filters, select)
+        findOne: ({collection, filters, project, limit}):Promise<Document> => {
+          const query = collection.findOne(filters).project(project)
           return new Promise(resolve => resolve( query ))
         },
-        find: ({collection, filters, select}):Promise<Document[]> => {
-          const cursor = collection.find(filters, select)
+        find: ({collection, filters, project, limit}):Promise<Document[]> => {
+          const cursor = collection.find(filters).project(project)
           return new Promise(resolve => resolve( cursor.toArray() ))
         },
         deleteMany: ({collection, filters}):Promise<Number> => {
@@ -91,8 +91,8 @@ class MongoDB{
 
       return await queryHandler[type]({
         collection: this.collection,
-        data, filters, select, pipeline,
-        set, facet
+        data, filters, project, pipeline,
+        set, facet, limit
       })
 
     } catch (error) {
