@@ -17,8 +17,9 @@ header a{
   color: rgb(165, 165, 165);
   text-decoration: none;
   transition: 300ms;
-  padding: 3px;
+  padding-left: 10px;
   text-shadow: 0px 0px 4px black;
+  border-left: 1px solid rgba(255, 255, 255, 0);
 }
 
 .header-item-main{
@@ -26,6 +27,6 @@ header a{
 }
 
 header a:hover{
-  border-bottom: 1px solid white;
+  border-left-color: white;
   color: rgb(255, 255, 255);
 }
