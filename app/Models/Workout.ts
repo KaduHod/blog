@@ -23,7 +23,7 @@ export default class WorkoutModel implements Workout {
     this.type = type;
   }
 
-  public getExercisesByAgonists = async ():Promise<void> => {
+  public getExercisesByAgonists = async ():Promise<any> => {
     this.exercisesByAgonists = await exerciseRepository.aggregateByAgonist(this.musclesIdList);
   }
 
@@ -34,6 +34,8 @@ export default class WorkoutModel implements Workout {
     const workoutRicycled  = this.setNumExercisesAndRecycle(workOutByMuscles)
    // console.log(workOutByMuscles)
     //const workout
+    this.mountedWorkout = workoutRicycled
+    //return workoutRicycled
   }
 
   public workoutByMuscle = async ():Promise<any[]> => {
@@ -61,15 +63,19 @@ export default class WorkoutModel implements Workout {
   }
 
   public setNumExercisesAndRecycle = (workoutByMuscles) => {
-    const needRiclyce = workoutByMuscles.filter( ({exercises}) => exercises.length < this.exercisesPerMuscle)
+    
+    const couldRicycle = workoutByMuscles.filter( ({exercises}) => exercises.length < this.exercisesPerMuscle)
     const canDonate = workoutByMuscles.filter( ({exercises}) => exercises.length > this.exercisesPerMuscle)
     const hasMinimalExercises = workoutByMuscles.filter( ({exercises}) => exercises.length === this.exercisesPerMuscle)
-    if(!needRiclyce) return workoutByMuscles
-    const trashCleaned = this.ricycle(canDonate)
-    console.log({canDonate, trashCleaned})
+    
+    if(!couldRicycle) return workoutByMuscles
+    const recycled = this.ricycle(canDonate)
+    //console.log({workoutByMuscles})
+
+    return recycled//tirar isso amanha
   }
 
-  public ricycle = (canDonate) => {
+  public ricycle = (canDonate):any[] => {
     return canDonate.map( ({muscleId, exercises}) => {
       const exercisesRicycled = filterUniqueExercises( this.exercisesPerMuscle, exercises)
       return {

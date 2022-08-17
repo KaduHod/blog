@@ -1,6 +1,6 @@
 import View from '@ioc:Adonis/Core/View'
-import { Muscle, Exercise, Workout } from "App/Models/interfaces";
-import { Document, ObjectId } from 'mongodb'
+import { Muscle, Exercise } from "App/Models/interfaces";
+import { ObjectId } from 'mongodb'
 import muscleRepository from 'App/repository/muscleRepository'
 import exerciseRepository from 'App/repository/exerciseRepository';
 import MuscleModel from 'App/Models/Muscle';

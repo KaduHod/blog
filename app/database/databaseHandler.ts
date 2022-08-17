@@ -54,11 +54,11 @@ class MongoDB{
           const query = collection.insertMany(data)
           return new Promise(resolve => resolve( query.insertedCount ))
         },
-        findOne: ({collection, filters, project, limit}):Promise<Document> => {
+        findOne: ({collection, filters, project}):Promise<Document> => {
           const query = collection.findOne(filters).project(project)
           return new Promise(resolve => resolve( query ))
         },
-        find: ({collection, filters, project, limit}):Promise<Document[]> => {
+        find: ({collection, filters, project}):Promise<Document[]> => {
           const cursor = collection.find(filters).project(project)
           return new Promise(resolve => resolve( cursor.toArray() ))
         },
