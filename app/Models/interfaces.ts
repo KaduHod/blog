@@ -1,5 +1,5 @@
+"use strict"
 import { ObjectId } from "mongodb";
-
 export interface Muscle{
   _id:ObjectId;
   name:string;

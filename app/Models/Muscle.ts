@@ -1,5 +1,5 @@
+"use strict"
 import { Muscle } from "App/Models/interfaces";
-
 export default class MuscleModel{
   static groupByBodyPart = (muscles:Muscle[]):Object => {
     return muscles.reduce( (acc, curr) => {

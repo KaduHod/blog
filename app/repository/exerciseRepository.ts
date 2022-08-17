@@ -1,3 +1,4 @@
+"use strict"
 import db from '../database/databaseHandler'
 import { Exercise } from 'App/Models/interfaces'
 import { ObjectId } from 'mongodb'

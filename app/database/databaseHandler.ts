@@ -1,3 +1,4 @@
+"use strict"
 import { Document, MongoClient } from 'mongodb'
 class MongoDB{
   public url = "mongodb+srv://gym-cloud:tnTTWKg7Qw48STg@gym-cloud.tnp2iq6.mongodb.net/?retryWrites=true&w=majority";

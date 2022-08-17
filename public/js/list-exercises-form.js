@@ -1,4 +1,5 @@
 const table = document.getElementById('table-workout-list')
+const tbody = document.getElementById('list-muscles')
 const aseembleWorkout = document.getElementById('formulario').action
 const joinMusclesArr = arr => {
   if(!arr) return
@@ -29,17 +30,8 @@ function requestTrainning({target}){
   })
 }
 
-function show({classList}){
-  if(classList.contains('hidden')) classList.remove('hidden')
-}
-
-function hide({classList}){
-  if(!classList.contains('hidden')) classList.add('hidden')
-}
 
 function mountList(exercicios){
-  console.log(exercicios)
-  const tbody = document.getElementById('list')
   tbody.innerHTML = ''
   exercicios.forEach( ({link, name, agonists, synergists, stabilizers}, i) => {
     let tr = `

@@ -1,11 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
+html{
+  background-image: url('/img/backgorund.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: -150px;
+  background-attachment: fixed;
+
+}
+
 html, body {
-  background-color: rgb(1, 1, 17);
+  /* background-color: rgb(1, 1, 17); */
   font-family: 'Poppins', sans-serif;
   height: 100vh;
   color: #46444c;
   position: relative;
+
+}
+
+body{
+  background: #141E30;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #243b55ab, #0a101ae8);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #243b55ab, #0a101ae8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-attachment: fixed;
+
+}
+.paddingLR{
+  padding-right: 80px;
+  padding-left: 80px;
 }
 
 
@@ -15,10 +37,6 @@ html, body {
   box-sizing: border-box;
 }
 
-body{
-  
-}
-
 #main-container{
   padding: 10px;
   padding-left: 50px;
@@ -26,7 +44,6 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: transparent;
 }
 #formulario{
   margin-bottom: 10px;
@@ -101,4 +118,11 @@ body{
 input::after{
   background-color: red;
   width: 30px;
+}
+
+.width100-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }

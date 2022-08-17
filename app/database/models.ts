@@ -1,3 +1,4 @@
+"use strict"
 import { Schema, model } from "mongoose";
 import { Muscle, Exercise } from "../Models/interfaces";
 

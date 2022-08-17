@@ -1,3 +1,4 @@
+"use strict"
 import View from '@ioc:Adonis/Core/View'
 import { Muscle, Exercise } from "App/Models/interfaces";
 import { ObjectId } from 'mongodb'

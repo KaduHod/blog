@@ -1,3 +1,4 @@
+"use strict"
 import { ObjectId } from 'mongodb';
 import { Exercise, Muscle, Workout } from 'App/Models/interfaces';
 import muscleRepository from 'App/repository/muscleRepository';
@@ -13,7 +14,6 @@ export default class WorkoutModel implements Workout {
   type:String;
   reps:String;
 
-
   constructor({setsPerMuscle, musclesIdList, type, reps}){
     this.setsPerMuscle = setsPerMuscle;
     this.exercisesPerMuscle = this.setsPerMuscle/3
@@ -27,56 +27,67 @@ export default class WorkoutModel implements Workout {
   }
 
   public mountWorkout = async ():Promise<void> => {
-
-    const workOutByMuscles = await this.workoutByMuscle()
-    const workoutsRicycled  = this.handleRecycle(workOutByMuscles)
-    let  workoutsWithRightAmountOfExercises = this.handleQtdExercises(workoutsRicycled)
+    const workOutByMuscles = await this.workoutByMuscle();
+    const workoutsRicycled = this.handleRecycle(workOutByMuscles);
+    let  workoutsWithRightAmountOfExercises = this.handleQtdExercises(workoutsRicycled);
     const musclesNames = await muscleRepository.getMuscleNames(this.musclesIdList);
     workoutsWithRightAmountOfExercises = workoutsWithRightAmountOfExercises.map( workout => {
-      const result:any = musclesNames.find( ({_id}) => _id.toString() === workout.muscleId.toString())
-      if(!result) return
-      result.exercises = workout.exercises
-      result
-      return result
+      const result:any = musclesNames.find( ({_id}) => _id.toString() === workout.muscleId.toString());
+      if(!result) return;
+      result.exercises = workout.exercises;
+      return result;
     });
-
-    this.mountedWorkout = workoutsWithRightAmountOfExercises
+    this.mountedWorkout = workoutsWithRightAmountOfExercises;
   }
 
   public handleQtdExercises = (workouts) => {
     return workouts.map( workout => {
-      const {exercises} = workout
+      const {exercises} = workout;
       if(exercises.length > this.exercisesPerMuscle){
         const copy = exercises
         while(copy.length > this.exercisesPerMuscle){
-          const rand = Math.floor(Math.random() * copy.length - 1)
-          copy.splice(rand,1)
+          const rand = Math.floor(Math.random() * copy.length - 1);
+          copy.splice(rand,1);
         }
-        workout.exercises = copy
+        workout.exercises = copy;
       }
-      return workout
+      return workout;
     })
   }
 
   public workoutByMuscle = async ():Promise<any[]> => {
-    let idsAlreadyFinded:ObjectId[] = []
-    const workoutByMuscle:any[] = []
+    let idsAlreadyFinded:ObjectId[] = [];
+    const workoutByMuscle:any[] = [];
 
     for await ( const id of this.musclesIdList ){
       const exercises:Exercise[] = await db.query({
-        type:'find',
+        type:'aggregation',
         collection:'exercises',
-        filters : { agonists : id, _id : {$nin : idsAlreadyFinded} },
-      })
+        pipeline :
+        [
+          {
+            $match : { agonists : id, _id : {$nin : idsAlreadyFinded} }
+          },
+          {
+            $lookup:
+            {
+              from : 'muscles',
+              localField : 'agonists',
+              foreignField : '_id',
+              as : 'agonistsNames'
+            }
+          }
+        ]
+      });
 
       exercises.forEach( (exercise:any) => {
         idsAlreadyFinded.push(exercise._id)
-      })
+      });
 
       workoutByMuscle.push({
         muscleId : id,
         exercises
-      })
+      });
     }
 
     return workoutByMuscle;
@@ -108,9 +119,7 @@ export default class WorkoutModel implements Workout {
       const { exercises } = donor;
       let exerciseCopy = exercises;
       for (let indexExercise = 0; indexExercise < exerciseCopy.length; indexExercise++ ){//iterando sobre exercicios
-        if(exerciseCopy.length == this.exercisesPerMuscle){
-          break;
-        }
+        if(exerciseCopy.length == this.exercisesPerMuscle) break;
         const exercise  = exerciseCopy[indexExercise];
         const  {agonists}  = exercise;
         for (let indexExerciseIds = 0; indexExerciseIds < idsToDonate.length; indexExerciseIds++){//iterando sobre musculos que precisam de doacao
@@ -136,8 +145,8 @@ export default class WorkoutModel implements Workout {
     }
 
     const workoutsAfterDonation = [];
-    toDonate.forEach( (workout):number => workoutsAfterDonation.push(workout));
-    donors.forEach(   (workout):number => workoutsAfterDonation.push(workout));
+    toDonate.forEach( (workout) => workoutsAfterDonation.push(workout));
+    donors.forEach(   (workout) => workoutsAfterDonation.push(workout));
     return workoutsAfterDonation;
   }
 
