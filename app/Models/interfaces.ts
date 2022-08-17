@@ -1,10 +1,12 @@
 import { ObjectId } from "mongodb";
 
 export interface Muscle{
+  _id:ObjectId;
   name:string;
   bodyPart:string[];
 }
 export interface Exercise{
+  _id:ObjectId;
   link:        string;
   name:        string;
   muscles:     ObjectId[] | Muscle[];
@@ -22,4 +24,3 @@ export interface Workout{
   type:String;
   reps:String;
 }
-

@@ -15,7 +15,7 @@ export default class muscleRepository{
     const query:Promise<Muscle[]> = db.query({
       type:'find',
       collection:'muscles',
-      project:{name:1, _id:0},
+      project:{name:1},
       filters : {_id : {$in : ids}}
     })
     return new Promise(resolve => resolve( query ))
