@@ -19,11 +19,9 @@
     <form action="{{ route('workouts.assemble')}} " id="form-muscles-list" >
       @include('partials/form-muscles')
     </form>
-    @include('partials/loading-gif')
     @include('partials/table-muscles')
-    
-    
   </div>
+  @include('partials/loading-gif')
 </body>
 <script src="/js/list-exercises-form.js"></script>
 <script src="/js/show.js"></script>
