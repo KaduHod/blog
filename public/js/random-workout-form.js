@@ -17,11 +17,32 @@ const workoutType = {
   'hipertrofy' : 'sets: 3 / reps: 6-12',
   'strength': 'sets: 3 / reps: 3-6'
 }
+const makeArrayToCsvFile = ({exercises}) => {
+  return exercises.map( ({name, link, agonistsNames}) => {
+    let agonists = agonistsNames.map( ({name}) => name).join(', ')
+    return [name, link, agonists]
+  })
+}
+
+const makeCsvString = arrCsv => {
+  let csvString = '';
+  arrCsv.forEach( rowArr => {
+    console.log(rowArr)
+    let row = rowArr.join(",");
+    csvString += row
+  })
+  return csvString;
+}
+
+const downloadCsv = stringCsv => window.open(encodeURI(stringCsv))
 
 async function handleSubmit(){
   const data = setRequestData()
   if(!data) return hide(table);
   const workout = await makeRequest(data)
+  let csvArr = makeArrayToCsvFile(workout)
+  let csvString = makeCsvString(csvArr)
+  downloadCsv(csvString)
   if(workout.exercises.length){
     show(table);
     mountTable(workout.exercises, workoutType[workout.type]);
@@ -37,8 +58,11 @@ async function makeRequest( {setsPerMuscle, musclesIds, reps, type} ){
     headers: {"Content-type": "application/json; charset=UTF-8"}
   })
   const {workout} = await response.json()
+  console.log(workout)
   return workout
 }
+
+
 
 function mountTable(exercises, workoutType){
   let trs = ``;
