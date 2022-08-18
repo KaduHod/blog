@@ -1,9 +1,8 @@
 #gif-container{
   width: 100%;
   height: fit-content;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
+  position: absolute;
 }
 
 .loader {

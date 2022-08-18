@@ -1,28 +1,33 @@
 "use strict"
 const form = document.getElementById('form-random-workout')
-form.addEventListener('submit', handleSubmit)
-const select = document.getElementById('workoutType')
+form.addEventListener('submit', evt => {
+  evt.preventDefault();
+  handleSubmit()
+})
+const select = document.getElementById('workoutTypeSelect')
+      select.addEventListener('change',handleSubmit)
 const inputs = [...form.getElementsByTagName('input')]
+      inputs.forEach( input => input.addEventListener('change',handleSubmit) )
 const urlToGetWorkout = document.getElementById('form-random-workout').action
 const tbody = document.getElementById('list-workout')
 const table = document.getElementById('table-workout-list')
 const gif_container = document.getElementById('gif-container')
+const workoutType = {
+  'resistence' : 'sets: 4 / reps: >13',
+  'hipertrofy' : 'sets: 3 / reps: 6-12',
+  'strength': 'sets: 3 / reps: 3-6'
+}
 
-async function handleSubmit(event){
-  event.preventDefault();
-  const data = setRequestData(event)
-  if(!data) return
+async function handleSubmit(){
+  const data = setRequestData()
+  if(!data) return hide(table);
   const workout = await makeRequest(data)
-  const exercises = getExercises(workout)
-  show(gif_container)
-  if(!!exercises.length){
-    show(table)
-    mountList(exercises)
-    hide(gif_container)
-    return
+  if(workout.exercises.length){
+    show(table);
+    mountTable(workout.exercises, workoutType[workout.type]);
+    return;
   }
-  hide(gif_container)
-  hide(table)
+  hide(table);
 }
 
 async function makeRequest( {setsPerMuscle, musclesIds, reps, type} ){
@@ -35,32 +40,26 @@ async function makeRequest( {setsPerMuscle, musclesIds, reps, type} ){
   return workout
 }
 
-function getExercises(workouts){
-  let exercisesArr = []
-  workouts.forEach( ({exercises}) => {
-    exercisesArr = exercisesArr.concat(exercises)
-  });
-  return exercisesArr
-}
-
-function mountList(exercises){
-  let trs = ``
+function mountTable(exercises, workoutType){
+  let trs = ``;
   exercises.forEach( ({name, agonistsNames, link}, index) => {
-    agonistsNames = agonistsNames.map( ({name}) => name )
+    agonistsNames = agonistsNames.map( ({name}) => name );
     trs += `
     <tr>
       <td>${index+1}</td>
-      <td><a target="_blank" href='${link}'>${name}</a></td>
+      <td>
+        <a target="_blank" href='${link}'>${name}</a>
+      </td>
       <td>${agonistsNames.join(', ')}</td>
+      <td>${workoutType}</td>
     </tr>
-    `
+    `;
   })
-  tbody.innerHTML = trs
+  tbody.innerHTML = trs;
 }
 
-function setRequestData({target}){
-  const musclesIds = [...target.getElementsByTagName('input')]
-                      .filter(({checked}) => !!checked)
+function setRequestData(){
+  const musclesIds = inputs.filter(({checked}) => !!checked)
                       .map(({value}) => value)
   if(!musclesIds.length) return false
   const {setsPerMuscle, type, reps} = JSON.parse(select.value)

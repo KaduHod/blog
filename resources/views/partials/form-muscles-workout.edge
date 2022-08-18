@@ -1,0 +1,43 @@
+
+<div class="cards-container">
+  <div class="body-part">
+    <h5>Upper Body</h5>
+   @each(muscle in groupMusclesByBodyPart.Upper)
+     <label for="muscle-{{muscle._id}}">
+       <span>{{muscle.name}}</span>
+       <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}">
+     </label>
+   @end
+ </div>
+  <div class="body-part">
+    <h5>Lower Body</h5>
+    @each(muscle in groupMusclesByBodyPart.Lower)
+      <label for="muscle-{{muscle._id}}">
+        <span>{{muscle.name}}</span>
+        <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}" >
+      </label>
+    @end
+  </div>
+
+  <div class="body-part">
+    <h5>Core</h5>
+    @each(muscle in groupMusclesByBodyPart.Core)
+      <label for="muscle-{{muscle._id}}">
+        <span>{{muscle.name}}</span>
+        <input type="checkbox" class="options" id="muscle-{{muscle._id}}" name="muscle" value="{{muscle._id}}" >
+      </label>
+    @end
+  </div>
+  <div class="inputs-container">
+    <div class="body-part">
+      <label for=""> <h5>Type</h5> </label>
+      <select name="workoutType" id="workoutTypeSelect">
+        <option value='{"type":"hipertrofy","reps":"6-12","setsPerMuscle":"9"}'>Hipertrofy | 6 - 12 Reps | 9 sets</option>
+        <option value='{"type":"resistence","reps":">13","setsPerMuscle":"12"}'>Resistence | > 13 Reps   | 12 sets</option>
+        <option value='{"type":"strength","reps":"3-6","setsPerMuscle":"9"}'>Strength   | 3 - 6 Reps  | 9 sets</option>
+      </select>
+    </div>
+  </div>
+  {{--  <button type="submit" class="btn btn-success my-btn">Generate</button>  --}}
+</div>
+

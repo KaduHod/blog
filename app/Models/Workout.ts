@@ -1,6 +1,7 @@
 "use strict"
 import { ObjectId } from 'mongodb';
-import { Exercise, Muscle, Workout } from 'App/Models/interfaces';
+import { Exercise, Workout, WorkoutMuscle } from 'App/Models/interfaces';
+import MounteWorkoutModel from './MountedWorkout';
 import muscleRepository from 'App/repository/muscleRepository';
 import exerciseRepository from 'App/repository/exerciseRepository';
 import db from 'App/database/databaseHandler';
@@ -8,11 +9,11 @@ import db from 'App/database/databaseHandler';
 export default class WorkoutModel implements Workout {
   musclesIdList:ObjectId[];
   exercisesByAgonists:Exercise[];
-  mountedWorkout:Workout;
+  mountedWorkout:WorkoutMuscle[];
   setsPerMuscle:number;
   exercisesPerMuscle:number;
-  type:String;
-  reps:String;
+  type:string;
+  reps:string;
 
   constructor({setsPerMuscle, musclesIdList, type, reps}){
     this.setsPerMuscle = setsPerMuscle;
@@ -154,8 +155,10 @@ export default class WorkoutModel implements Workout {
     return this.exercisesByAgonists;
   }
 
-  public getMountedWorkout():Workout{
-    return this.mountedWorkout;
+  public getMountedWorkout():MounteWorkoutModel{
+    const workout = new MounteWorkoutModel(this.mountedWorkout, this.type, this.reps, this.setsPerMuscle);
+          workout.setExercises();
+    return workout;
   }
 }
 

@@ -10,7 +10,7 @@ const checkBoxs = [...document.getElementsByName('muscle')]
       checkBoxs.forEach( el => el.addEventListener('change', requestTrainning) )
 
 function requestTrainning({target}){
-  show(gif_container)
+  //show(gif_container)
   const musclesIds = checkBoxs.filter( check => check.checked ).map( ({value}) => value )
   fetch( aseembleWorkout, {
     method: 'POST',
@@ -21,11 +21,11 @@ function requestTrainning({target}){
   .then( ({exercicios}) => {
     if(exercicios.length) {
       show(table);
-      hide(gif_container)
+      //hide(gif_container)
       mountList(exercicios);
       return;
     }
-    hide(gif_container);
+    //hide(gif_container);
     hide(table);
   })
 }

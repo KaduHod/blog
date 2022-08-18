@@ -1,7 +1,7 @@
 
 <div class="cards-container">
   <div class="body-part">
-    <h3>Upper Body</h3>
+    <h5>Upper Body</h5>
    @each(muscle in groupMusclesByBodyPart.Upper)
      <label for="muscle-{{muscle._id}}">
        <span>{{muscle.name}}</span>
@@ -10,7 +10,7 @@
    @end
  </div>
   <div class="body-part">
-    <h3>Lower Body</h3>
+    <h5>Lower Body</h5>
     @each(muscle in groupMusclesByBodyPart.Lower)
       <label for="muscle-{{muscle._id}}">
         <span>{{muscle.name}}</span>
@@ -18,9 +18,9 @@
       </label>
     @end
   </div>
-  
+
   <div class="body-part">
-    <h3>Core</h3>
+    <h5>Core</h5>
     @each(muscle in groupMusclesByBodyPart.Core)
       <label for="muscle-{{muscle._id}}">
         <span>{{muscle.name}}</span>

@@ -21,6 +21,19 @@ export interface Workout{
   mountedWorkout:Object;
   setsPerMuscle:number;
   exercisesPerMuscle:number;
-  type:String;
-  reps:String;
+  type:string;
+  reps:string;
+}
+
+export interface WorkoutMuscle{
+  _id:ObjectId;
+  name:string;
+  exercises:Exercise[];
+}
+
+export interface MountedWorkout{
+  exercisesByMuscle:WorkoutMuscle[];
+  setsPerMuscle:number
+  type:string;
+  reps:string;
 }

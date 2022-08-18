@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
 html{
-  background-image: url('/img/backgorund.jpg');
+  background-image: url('/img/gym-bc.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position-y: -150px;
@@ -10,20 +10,17 @@ html{
 }
 
 html, body {
-  /* background-color: rgb(1, 1, 17); */
   font-family: 'Poppins', sans-serif;
-  height: 100vh;
   color: rgb(255, 255, 255);
   position: relative;
-
+  font-size: 15px ;
 }
 
 body{
   background: #141E30;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #243b55ab, #0a101afb);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #243b55ab, #0a101afb); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(to left, #243b55ab, #0a101a);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #243b55ab, #0a101a ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background-attachment: fixed;
-
 }
 .paddingLR{
   padding-right: 80px;
@@ -38,7 +35,7 @@ body{
 }
 
 #main-container{
-  padding: 10px;
+  padding-bottom: 10px;
   padding-left: 50px;
   padding-right: 50px;
   display: flex;
@@ -71,12 +68,58 @@ body{
 #table-workout-list{
   width: 70%;
   padding: 10px;
-  background-color: rgba(255, 255, 255, 0.938);
+  background-color: #273244ee;
+  border-color: rgba(255, 255, 255, 0);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.466);
+  border-radius: 10px;
 }
-#table-workout-list h1 {
+
+#table-workout-list td{
+  color: rgb(165, 165, 165);
+}
+#table-workout-list th{
+  font-weight: normal;
+  color: white;
+}
+#table-workout-list  a{
+  text-decoration: none;
+  color: white;
+}
+#table-workout-list  a:hover{
+  text-shadow: 0px 0px 5px black;
+}
+#table-workout-list tr{
+  border-bottom-color:  rgba(136, 136, 136, 0.11);
+}
+.header-table{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 }
+.header-table h1{
+  width: fit-content;
+  display: flex;
+  justify-content: flex-start;
+  color: white;
+  box-sizing: border-box;
+  text-indent: 10px;
+}
+.header-table-button{
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: fit-content;
+}
+.header-table-button ion-icon{
+  margin: 10px;
+  transition: 200ms;
+  transform: scale(1.2);
+}
+.header-table-button ion-icon:hover{
+  transform: scale(1.4);
+}
+
 .hidden{
   display: none;
   visibility: hidden;
@@ -109,4 +152,12 @@ input::after{
 
 .form-muscles{
   width: 70%;
+}
+
+#workoutTypeSelect{
+  width: 100%;
+}
+
+.my-btn{
+  margin-top:20px
 }

@@ -1,17 +1,31 @@
 <header class="paddingLR">
-  <div class="header-item-main">
-    <a href="/">Home</a>
+  <div class="header-item-main-wrapper">
+    <div class="header-item-main">
+      <a class="header-item-link" href="/">Home</a>
+    </div>
   </div>
-  <div class="header-item">
-    <a href="{{ route('workouts.form') }}">Exercises per muscle</a>
-  </div>
-  <div class="header-item">
-    <a href="{{ route('workouts.random-form') }}">Generate workouts for free</a>
-  </div>
-  <div class="header-item">
-    <a href="{{ route('muscles') }}">Api - Muscles</a>
-  </div>
-  <div class="header-item">
-    <a href="{{ route('exercises') }}">Api - Exercises</a>
+  <div class="header-items-wrapper">
+    <div class="header-item">
+      <a class="header-item-link" href="{{ route('workouts.form') }}">Exercises per muscle</a>
+    </div>
+    <div class="header-item">
+      <a class="header-item-link" href="{{ route('workouts.random-form') }}">Generate workouts</a>
+    </div>
+    <div class="header-item">
+      <a class="header-item-link" href="{{ route('muscles') }}">Api - Muscles</a>
+    </div>
+    <div class="header-item">
+      <a class="header-item-link" href="{{ route('exercises') }}">Api - Exercises</a>
+    </div>
   </div>
 </header>
+<script>
+  function highlightCurrentLink(){
+    const linkMatchedWithCurrentPage = [... document.getElementsByClassName('header-item-link')]
+                                          .find( ({href}) => href === window.location.href  )
+    linkMatchedWithCurrentPage.style.color = 'white'
+    linkMatchedWithCurrentPage.style.borderBottomColor = 'white'
+  }
+  highlightCurrentLink()
+
+</script>

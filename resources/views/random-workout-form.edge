@@ -13,30 +13,22 @@
   <link rel="stylesheet" href="/css/loading-gif.css">
 </head>
 <body>
+<div style="min-height:100vh;height:fit-content">
   @include('partials/header')
-  <form action="{{ route('workouts.random-form-post') }} " id="form-random-workout" method="post">
-    @include('partials/form-muscles')
+  <div id="main-container">
+    <form action="{{ route('workouts.random-form-post') }} " id="form-random-workout" method="post">
+      @include('partials/form-muscles-workout')
+    </form>
     <div class="inputs-container">
-      <div class="body-part">
-        <label for=""> <h3>Sets per muscle</h3> </label>
-        <select name="workoutType" id="workoutType">
-          <option value='{"type":"hipertrofy","reps":"6-12","setsPerMuscle":"9"}'>Hipertrofy | 6 - 12 Reps | 9 sets</option>
-          <option value='{"type":"resistence","reps":">13","setsPerMuscle":"12"}'>Resistence | > 13 Reps   | 12 sets</option>
-          <option value='{"type":"strength","reps":"3-6","setsPerMuscle":"9"}'>Strength   | 3 - 6 Reps  | 9 sets</option>
-        </select>
-      </div>
+      @include('partials/table-workout')
     </div>
-    <div class="width100-center">
-      <button type="submit" class="btn btn-success">Enviar</button>
-    </div>
-  </form>
-  @include('partials/loading-gif')
-  <div class="inputs-container">
-    @include('partials/table-workout')
   </div>
+</div>
   <script src="/js/random-workout-form.js"></script>
   <script src="/js/show.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

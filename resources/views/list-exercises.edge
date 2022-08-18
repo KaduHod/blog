@@ -14,19 +14,24 @@
   @entryPointScripts('app')
 </head>
 <body>
+<div style="min-height:100vh;height:fit-content">
   @include('partials/header')
   <div id="main-container">
     <form action="{{ route('workouts.assemble')}} " id="form-muscles-list" >
       @include('partials/form-muscles')
     </form>
-    @include('partials/table-muscles')
+    <div class="inputs-container">
+      @include('partials/table-muscles')
+    </div>
   </div>
-  @include('partials/loading-gif')
+</div>
 </body>
 <script src="/js/list-exercises-form.js"></script>
 <script src="/js/show.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 <script>
 
 </script>

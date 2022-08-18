@@ -4,9 +4,11 @@
   max-width: 250px;
   flex-wrap: wrap;
   padding: 20px;
-  background-color: #090e16ee;
+  background-color: #273244ee;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.466);
-  border-radius: 5px;
+  border-radius: 10px;
+  /* border:1px solid rgb(201, 231, 243); */
+  color: rgb(165, 165, 165);
 }
 .body-part{
   min-width: 200px;
@@ -14,7 +16,7 @@
   flex-direction: column;
   align-items:flex-start;
   height: fit-content;
-  
+  padding: 5px;
 }
 .body-part label{
   display: flex;
@@ -27,8 +29,9 @@
   justify-content: flex-start;
 
 }
-.body-part h3{
-  margin-bottom: 20px;
+.body-part h5{
+  margin-bottom: 5px;
+  color: white;
 }
 
 .body-part label input{
