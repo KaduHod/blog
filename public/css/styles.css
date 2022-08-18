@@ -119,6 +119,9 @@ body{
 .header-table-button ion-icon:hover{
   transform: scale(1.4);
 }
+ion-icon:hover{
+  cursor: pointer;
+}
 
 .hidden{
   display: none;
