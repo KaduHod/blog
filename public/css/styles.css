@@ -13,15 +13,15 @@ html, body {
   /* background-color: rgb(1, 1, 17); */
   font-family: 'Poppins', sans-serif;
   height: 100vh;
-  color: #46444c;
+  color: rgb(255, 255, 255);
   position: relative;
 
 }
 
 body{
   background: #141E30;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, #243b55ab, #0a101ae8);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, #243b55ab, #0a101ae8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(to left, #243b55ab, #0a101afb);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #243b55ab, #0a101afb); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background-attachment: fixed;
 
 }
@@ -42,14 +42,14 @@ body{
   padding-left: 50px;
   padding-right: 50px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
 }
-#formulario{
+#form-muscles-list{
   margin-bottom: 10px;
-  width: 100%;
+  width: fit-content;
   display: flex;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   color: white;
 }
 
@@ -66,30 +66,10 @@ body{
   align-items: flex-start;
   justify-content: space-around;
 }
-.body-part{
-  display: flex;
-  flex-direction: column;
-  align-items:flex-start;
-  height: 100%;
-  padding: 5px;
-}
-.body-part label{
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content:  space-between;;
-}
-.body-part label span{
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
 
-}
-
-.body-part label input{
-  margin-right: 10px;
-}
 
 #table-workout-list{
+  width: 70%;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.938);
 }
@@ -125,4 +105,8 @@ input::after{
   align-items: center;
   justify-content: center;
   width: 100%;
+}
+
+.form-muscles{
+  width: 70%;
 }
