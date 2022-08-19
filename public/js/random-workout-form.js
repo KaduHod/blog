@@ -17,44 +17,15 @@ const workoutType = {
   'hipertrofy' : 'sets: 3 / reps: 6-12',
   'strength': 'sets: 3 / reps: 3-6'
 }
-const makeArrayToCsvFile = ({exercises}) => {
-  return exercises.map( ({name, link, agonistsNames}) => {
-    let agonists = agonistsNames.map( ({name}) => name).join(' ')
-    return [name, link, agonists]
-  })
-}
-
-const makeCsvString = arrCsv => {
-  let csvString = '';
-  arrCsv.forEach( rowArr => {
-    console.log(rowArr)
-    let row = rowArr.join(",");
-    row+= '\r\n'
-    csvString += row
-  })
-  return csvString;
-}
-
-function downloadCsv(content, filename, contentType) {
-  // Create a blob
-  var blob = new Blob([content], { type: contentType });
-  var url = URL.createObjectURL(blob);
-
-  // Create a link to download it
-  var pom = document.createElement('a');
-  pom.href = url;
-  pom.setAttribute('download', filename);
-  pom.click();
-}
+const iconDownload = document.getElementById('icon-download')
+      iconDownload.addEventListener('click', csv)
+var currentWorkout = null;
 
 async function handleSubmit(){
   const data = setRequestData()
   if(!data) return hide(table);
-  const workout = await makeRequest(data)
-  let csvArr = makeArrayToCsvFile(workout)
-  let csvString = makeCsvString(csvArr)
-  console.log(csvString)
-  downloadCsv(csvString, 'workout.csv', 'text/csv;charset=utf-8;')
+  const workout = await makeRequest(data);
+  currentWorkout = workout;
   if(workout.exercises.length){
     show(table);
     mountTable(workout.exercises, workoutType[workout.type]);
@@ -70,11 +41,8 @@ async function makeRequest( {setsPerMuscle, musclesIds, reps, type} ){
     headers: {"Content-type": "application/json; charset=UTF-8"}
   })
   const {workout} = await response.json()
-  console.log(workout)
   return workout
 }
-
-
 
 function mountTable(exercises, workoutType){
   let trs = ``;
@@ -102,4 +70,37 @@ function setRequestData(){
   return {setsPerMuscle, type, reps, musclesIds}
 }
 
+function csv(){
+  const csvArr = makeArrayToCsvFile(currentWorkout);
+  const csvString = makeCsvString(csvArr);
+  const fileName = 'workout.csv';
+  const type = 'text/csv;charset=utf-8;';
+  downloadCsv({csvString, fileName, type})
+}
+
+const makeArrayToCsvFile = ({exercises}) => {
+  return exercises.map( ({name, link, agonistsNames}) => {
+    let agonists = agonistsNames.map( ({name}) => name).join(' ')
+    return [name, link, agonists]
+  })
+}
+
+const makeCsvString = arrCsv => {
+  let csvString = '';
+  arrCsv.forEach( rowArr => {
+    let row = rowArr.join(",");
+    row+= '\r\n'
+    csvString += row
+  })
+  return csvString;
+}
+
+function downloadCsv({content, fileName, type}) {
+  const blob = new Blob([content], { type });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', fileName);
+  link.click();
+}
 
