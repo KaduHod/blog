@@ -19,7 +19,7 @@ const workoutType = {
 }
 const makeArrayToCsvFile = ({exercises}) => {
   return exercises.map( ({name, link, agonistsNames}) => {
-    let agonists = agonistsNames.map( ({name}) => name).join(', ')
+    let agonists = agonistsNames.map( ({name}) => name).join(' ')
     return [name, link, agonists]
   })
 }
@@ -29,12 +29,23 @@ const makeCsvString = arrCsv => {
   arrCsv.forEach( rowArr => {
     console.log(rowArr)
     let row = rowArr.join(",");
+    row+= '\r\n'
     csvString += row
   })
   return csvString;
 }
 
-const downloadCsv = stringCsv => window.open(encodeURI(stringCsv))
+function downloadCsv(content, filename, contentType) {
+  // Create a blob
+  var blob = new Blob([content], { type: contentType });
+  var url = URL.createObjectURL(blob);
+
+  // Create a link to download it
+  var pom = document.createElement('a');
+  pom.href = url;
+  pom.setAttribute('download', filename);
+  pom.click();
+}
 
 async function handleSubmit(){
   const data = setRequestData()
@@ -42,7 +53,8 @@ async function handleSubmit(){
   const workout = await makeRequest(data)
   let csvArr = makeArrayToCsvFile(workout)
   let csvString = makeCsvString(csvArr)
-  downloadCsv(csvString)
+  console.log(csvString)
+  downloadCsv(csvString, 'workout.csv', 'text/csv;charset=utf-8;')
   if(workout.exercises.length){
     show(table);
     mountTable(workout.exercises, workoutType[workout.type]);
