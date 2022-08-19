@@ -1,3 +1,25 @@
 .icon{
-  border: 1px solid red;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: 70ms;
+  cursor: pointer;
+  background-size: cover;
+  filter: drop-shadow(5px 5px 5px rgb(34, 34, 34));
+}
+
+.icon:hover{
+  transform: scale(1.3) ;
+  filter: drop-shadow(10px 10px 5px rgb(32, 32, 32));
+
+}
+
+.icon-csv{
+  background-image: url('/img/export-csv-file.png');
+}
+
+.icon-pdf{
+  background-image: url('/img/export-pdf-file.png');
 }

@@ -7,16 +7,18 @@ class WorkoutSheet {
     this.arrCsv;
     this.csvString;
   }
+
   formatArrToCsvArrayType = () => {
     const [_id, name, link, muscles, agonists, stabilizers, synergists, agonistsNames] = Object.keys(this.exercises[0])
-    const resultArray = this.exercises.map( ({name, link, agonistsNames}) => {
+    const resultArray = this.exercises.map( ({name, link, agonistsNames}, index) => {
       const agonists = agonistsNames.map( ({name}) => name ).join(' ')
-      return [ name, link, agonists];
+      return [index+1 ,name, link, agonists];
     })
-    resultArray.unshift([name.toUpperCase(), link.toUpperCase(), agonists.toUpperCase(),'SETS']);
+    resultArray.unshift(["Nº" ,'EXERCISE', link.toUpperCase(), agonists.toUpperCase(),'SETS']);
     this.arrCsv = resultArray;
     return this;
   }
+
   csvArrToString = () => {
     this.csvString = this.arrCsv.reduce( (stringCsv, rowArr, index) => {
       let row = rowArr.join(',');
@@ -27,6 +29,7 @@ class WorkoutSheet {
     },'')
     return this;
   }
+
   download = () => {
     const blob = new Blob([this.csvString], { type:this.type });
     const url = URL.createObjectURL(blob);
