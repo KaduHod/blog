@@ -17,7 +17,7 @@ const workoutType = {
   'hipertrofy' : 'sets: 3 / reps: 6-12',
   'strength': 'sets: 3 / reps: 3-6'
 }
-const iconDownload = document.getElementById('icon-download')
+const iconDownload = document.getElementById('csv-download')
       iconDownload.addEventListener('click', csv)
 var currentWorkout = null;
 
