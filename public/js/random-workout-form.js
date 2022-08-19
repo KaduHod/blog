@@ -21,6 +21,12 @@ const iconDownload = document.getElementById('icon-download')
       iconDownload.addEventListener('click', csv)
 var currentWorkout = null;
 
+function csv(){
+  const {exercises} = currentWorkout
+  const csvModel = new WorkoutSheet({exercises, fileName: 'Workout.csv', workoutSet : workoutType[currentWorkout.type]})
+        csvModel.downloadCsvFile()
+}
+
 async function handleSubmit(){
   const data = setRequestData()
   if(!data) return hide(table);
@@ -70,37 +76,5 @@ function setRequestData(){
   return {setsPerMuscle, type, reps, musclesIds}
 }
 
-function csv(){
-  const csvArr = makeArrayToCsvFile(currentWorkout);
-  const csvString = makeCsvString(csvArr);
-  const fileName = 'workout.csv';
-  const type = 'text/csv;charset=utf-8;';
-  downloadCsv({csvString, fileName, type})
-}
 
-const makeArrayToCsvFile = ({exercises}) => {
-  return exercises.map( ({name, link, agonistsNames}) => {
-    let agonists = agonistsNames.map( ({name}) => name).join(' ')
-    return [name, link, agonists]
-  })
-}
-
-const makeCsvString = arrCsv => {
-  let csvString = '';
-  arrCsv.forEach( rowArr => {
-    let row = rowArr.join(",");
-    row+= '\r\n'
-    csvString += row
-  })
-  return csvString;
-}
-
-function downloadCsv({content, fileName, type}) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.setAttribute('download', fileName);
-  link.click();
-}
 
