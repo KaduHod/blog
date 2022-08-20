@@ -30,21 +30,11 @@ class WorkoutSheet {
     return this;
   }
 
-  download = () => {
-    const blob = new Blob([this.csvString], { type:this.type });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', this.fileName);
-    link.click();
-    return this;
-  }
-
-  downloadCsvFile = () => {
+  file = () => {
     this.formatArrToCsvArrayType()
         .csvArrToString()
-        .download();
-    return this;
+    const {csvString, type} = this;
+    return {csvString, type};
   }
 
 }

@@ -17,15 +17,29 @@ const workoutType = {
   'hipertrofy' : 'sets: 3 / reps: 6-12',
   'strength': 'sets: 3 / reps: 3-6'
 }
-const iconDownload = document.getElementById('csv-download')
-      iconDownload.addEventListener('click', csv)
 var currentWorkout = null;
+const csvDownload = document.getElementById('csv-download')
+      csvDownload.addEventListener('click', csv)
+const excelDownload = document.getElementById('xlsx-download')
+excelDownload.addEventListener('click', excel)
+
+function excel(){
+  const {exercises} = currentWorkout
+  Sheet.downloadXLSX({exercises, workoutType: workoutType[currentWorkout.type], fileName : 'Workout.xlsx', startCel: 'A1'})
+}
 
 function csv(){
   const {exercises} = currentWorkout
   const csvModel = new WorkoutSheet({exercises, fileName: 'Workout.csv', workoutSet : workoutType[currentWorkout.type]})
-        csvModel.downloadCsvFile()
+  const {csvString, type} = csvModel.file()  
+  Sheet.downloadCSV({
+    csvString,
+    type,
+    fileName : 'Treino planilha.csv'
+  })
 }
+
+
 
 async function handleSubmit(){
   const data = setRequestData()
