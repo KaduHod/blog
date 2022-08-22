@@ -39,8 +39,6 @@ function csv(){
   })
 }
 
-
-
 async function handleSubmit(){
   const data = setRequestData()
   if(!data) return hide(table);

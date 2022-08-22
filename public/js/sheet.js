@@ -12,19 +12,19 @@ const Sheet = {
             const agonists = agonistsNames.map( ({name}) => name ).join(', ')
             return {name, agonists, 'SETS/REPS' : workoutType}
         })
-        const links = exercises.map(({link}) =>  link)
+        const links     = exercises.map(({link}) =>  link)
         const worksheet = XLSX.utils.json_to_sheet(rows)
-        const keys = Object.keys(worksheet)
-        const cells = keys.filter( key => key.match(/A/g))
+        const keys      = Object.keys(worksheet)
+        const cells     = keys.filter( key => key.match(/A/g))
               cells.pop()
         cells.forEach( (cel, i) => {
             worksheet[cel].l = { Target : links[i]}
         });
-        const workbook  = XLSX.utils.book_new()
-        const headers   = [Object.keys(rows[0]).map( header => header.toUpperCase() )];
+        const workbook     = XLSX.utils.book_new()
+        const headers      = [Object.keys(rows[0]).map( header => header.toUpperCase() )];
         XLSX.utils.book_append_sheet(workbook, worksheet,'Workout');
         XLSX.utils.sheet_add_aoa(worksheet, headers, {origin : startCel});
-        const max_width = rows.reduce((w, r) => Math.max(w, r.name.length), 10);
+        const max_width    = rows.reduce((w, r) => Math.max(w, r.name.length), 10);
         worksheet["!cols"] = [ { wch: max_width } ];
         XLSX.writeFile(workbook, fileName);
     }
