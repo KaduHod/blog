@@ -4,24 +4,33 @@ form.addEventListener('submit', evt => {
   evt.preventDefault();
   handleSubmit()
 })
-const select = document.getElementById('workoutTypeSelect')
-      select.addEventListener('change',handleSubmit)
-const inputs = [...form.getElementsByTagName('input')]
-      inputs.forEach( input => input.addEventListener('change',handleSubmit) )
-const urlToGetWorkout = document.getElementById('form-random-workout').action
-const tbody = document.getElementById('list-workout')
-const table = document.getElementById('table-workout-list')
-const gif_container = document.getElementById('gif-container')
+const select = document.getElementById('workoutTypeSelect');
+      select.addEventListener('change',handleSubmit);
+const inputs = [...form.getElementsByTagName('input')];
+      inputs.forEach( input => input.addEventListener('change',handleSubmit));
+const urlToGetWorkout = document.getElementById('form-random-workout').action;
+const tbody = document.getElementById('list-workout');
+const table = document.getElementById('table-workout-list');
+const gif_container = document.getElementById('gif-container');
 const workoutType = {
   'resistence' : 'sets: 4 / reps: >13',
   'hipertrofy' : 'sets: 3 / reps: 6-12',
   'strength': 'sets: 3 / reps: 3-6'
-}
+};
 var currentWorkout = null;
-const csvDownload = document.getElementById('csv-download')
-      csvDownload.addEventListener('click', csv)
-const excelDownload = document.getElementById('xlsx-download')
-excelDownload.addEventListener('click', excel)
+const csvDownload = document.getElementById('csv-download');
+      csvDownload.addEventListener('click', csv);
+const excelDownload = document.getElementById('xlsx-download');
+      excelDownload.addEventListener('click', excel);
+const pddfDownload = document.getElementById('pdf-download');
+      pddfDownload.addEventListener('click', pdf)
+
+
+function pdf(){
+  const {exercises} = currentWorkout;
+  PDF.handler({data:exercises, workoutType: workoutType[currentWorkout.type]});
+}
+
 
 function excel(){
   const {exercises} = currentWorkout
@@ -31,7 +40,7 @@ function excel(){
 function csv(){
   const {exercises} = currentWorkout
   const csvModel = new WorkoutSheet({exercises, fileName: 'Workout.csv', workoutSet : workoutType[currentWorkout.type]})
-  const {csvString, type} = csvModel.file()  
+  const {csvString, type} = csvModel.file()
   Sheet.downloadCSV({
     csvString,
     type,

@@ -12,6 +12,7 @@ const Sheet = {
             const agonists = agonistsNames.map( ({name}) => name ).join(', ')
             return {name, agonists, 'SETS/REPS' : workoutType}
         })
+        console.log(rows)
         const links     = exercises.map(({link}) =>  link)
         const worksheet = XLSX.utils.json_to_sheet(rows)
         const keys      = Object.keys(worksheet)
