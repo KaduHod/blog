@@ -6,6 +6,7 @@ import muscleRepository from 'App/repository/muscleRepository'
 import exerciseRepository from 'App/repository/exerciseRepository';
 import MuscleModel from 'App/Models/Muscle';
 import WorkoutModel from 'App/Models/Workout';
+import PdfService from 'App/Services/Pdf';
 
 class WorkoutsController {
   public form = async ({response}) =>{
@@ -42,6 +43,16 @@ class WorkoutsController {
     response.status(200)
     response.header('Content-type','application/json')
     return {workout : workout.getMountedWorkout()}
+  }
+
+  public pdf = async ({request, response}) => {
+    const {data} = request.body();
+    const pdfService = new PdfService({data});
+    const pdfBytes = await pdfService.createPdf();
+    console.log(pdfBytes)
+    response.status(200)
+    response.header('Content-type','application/json')
+    return {data:pdfBytes};
   }
 }
 export default new WorkoutsController

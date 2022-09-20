@@ -27,8 +27,7 @@ const pddfDownload = document.getElementById('pdf-download');
 
 
 function pdf(){
-  const {exercises} = currentWorkout;
-  PDF.handler({data:exercises, workoutType: workoutType[currentWorkout.type]});
+  PDF.handler();
 }
 
 

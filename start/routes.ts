@@ -23,10 +23,11 @@ import WorkoutsController from '../app/Controllers/Http/WorkoutsController'
 import db from '../app/database/databaseHandler'
 
 Route.group( () => {
-  Route.post('/assemble', WorkoutsController.assembleMusclesFormWourkout).as('workouts.assemble')
-  Route.get('/exercise-list', WorkoutsController.form).as('workouts.form')
-  Route.get('/form-random-workout', WorkoutsController.randomWorkout).as('workouts.random-form')
-  Route.post('/post-random-workout', WorkoutsController.assembleRandomWorkout).as('workouts.random-form-post')
+  Route.post('/assemble', WorkoutsController.assembleMusclesFormWourkout).as('workouts.assemble');
+  Route.get('/exercise-list', WorkoutsController.form).as('workouts.form');
+  Route.get('/form-random-workout', WorkoutsController.randomWorkout).as('workouts.random-form');
+  Route.post('/post-random-workout', WorkoutsController.assembleRandomWorkout).as('workouts.random-form-post');
+  Route.post('/pdf', WorkoutsController.pdf).as('workouts.pdf');
 }).prefix('workouts')
 
 Route.group( async ()=>{
