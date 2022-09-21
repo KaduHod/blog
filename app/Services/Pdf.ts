@@ -1,16 +1,15 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib'
-
 export default class Pdf {
   data:any[];
   constructor({data}){
     this.data = data;
   }
-  async createPdf(){
+  async createPdf():Promise<string>{
     const pdfDoc = await PDFDocument.create()
     const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
 
     const page = pdfDoc.addPage()
-    const { width, height } = page.getSize()
+    const { height } = page.getSize()
     const fontSize = 30
     page.drawText('Creating PDFs in JavaScript is awesome!', {
       x: 50,
@@ -19,7 +18,6 @@ export default class Pdf {
       font: timesRomanFont,
       color: rgb(0, 0.53, 0.71),
     })
-
-    return await pdfDoc.save()
+    return await pdfDoc.saveAsBase64();
   }
 }
